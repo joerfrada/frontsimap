@@ -1,0 +1,54 @@
+<div class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav">
+            <ng-container *ngFor="let item of allMenu">
+                <li>
+                    <div *ngIf="item.ruta == ''" class="sidebar-nav-item pointer noselect" (click)="toggleCollapse(item)">
+                        <i class="icon {{ item.icono }}"></i>                    
+                        <span class="text">{{ item.nombre_menu }}</span>
+                        <i class="sidebar-indicator" [ngClass]="item.collapsed ? 'fa fa-angle-right' : 'fa fa-angle-down'" *ngIf="item.menus && item.menus.length > 0"></i>
+                    </div>
+                    <div *ngIf="item.ruta != ''" class="sidebar-nav-item pointer noselect" routerLink="/simap/{{ item.ruta }}">
+                        <i class="icon {{ item.icono }}"></i>
+                        <span class="text">{{ item.nombre_menu }}</span>
+                        <i class="sidebar-indicator" [ngClass]="item.collapsed ? 'fa fa-angle-right' : 'fa fa-angle-down'" *ngIf="item.menus && item.menus.length > 0"></i>
+                    </div>
+                </li>
+                <div [@toggle]="item.collapsed ? 'collapsed' : 'expanded'">
+                    <ng-container *ngIf="item.menus && item.menus.length > 0">
+                        <ul class="sidebar-subnav">
+                            <ng-container *ngFor="let subitem of item.menus">
+                                <li>
+                                    <div *ngIf="subitem.ruta == ''" class="sidebar-subnav-item pointer noselect" (click)="toggleCollapse(subitem)">
+                                        <i class="icon {{ subitem.icono }}"></i>
+                                        <span class="text">{{ subitem.nombre_menu }}</span>
+                                        <i class="sidebar-indicator" [ngClass]="subitem.collapsed ? 'fa fa-angle-right' : 'fa fa-angle-down'" *ngIf="subitem.menus && subitem.menus.length > 0"></i>
+                                    </div>
+                                    <div *ngIf="subitem.ruta != ''" class="sidebar-subnav-item pointer noselect" routerLink="/simap/{{ subitem.ruta }}">
+                                        <i class="icon icon-small {{ subitem.icono }}"></i>
+                                        <span class="text">{{ subitem.nombre_menu }}</span>
+                                        <i class="sidebar-indicator" [ngClass]="subitem.collapsed ? 'fa fa-angle-right' : 'fa fa-angle-down'" *ngIf="subitem.menus && subitem.menus.length > 0"></i>
+                                    </div>
+                                </li>
+                                <div [@toggle]="subitem.collapsed ? 'collapsed' : 'expanded'">
+                                    <ng-container *ngIf="subitem.menus && subitem.menus.length > 0">
+                                        <ul class="sidebar-subnav-sub">
+                                            <ng-container *ngFor="let subitem1 of subitem.menus">
+                                                <li>
+                                                    <div *ngIf="subitem1.ruta != ''" class="sidebar-subnav-item pointer noselect" routerLink="/simap/{{ subitem1.ruta }}">
+                                                        <i class="icon icon-small {{ subitem1.icono }}"></i>
+                                                        <span class="text">{{ subitem1.nombre_menu }}</span>                                                        
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+                        </ul>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </ul>
+    </div>
+</div>

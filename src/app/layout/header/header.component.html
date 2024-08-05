@@ -1,0 +1,15 @@
+<header class="app-header">
+    <img class="logo1" src="../../assets/img/escudo-policia.png">
+    <div class="title">AVIACIÓN POLICIAL</div>
+    <img class="logo2" src="../../assets/img/simap.png">
+    <ul class="app-nav">
+        <li>
+            <span class="app-nav-user">{{currentUser.nombre_completo}}</span>
+        </li>
+        <li>
+            <div class="app-nav-item pointer noselect" (click)="logout()">
+                <i class="fa fa-sign-out-alt fa-lg"></i>
+            </div>
+        </li>
+    </ul>
+</header>

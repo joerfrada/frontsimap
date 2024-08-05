@@ -1,0 +1,195 @@
+.login-container {
+    background-image: url('../../../assets/img/bg-simap.png');
+    background-repeat: repeat;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    background: rgba($color: #000000, $alpha: 0.3);
+
+    .logo1 {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    .logo2 {
+        width: 252px;
+        height: 91px;
+    }
+
+    .login-title {
+        padding: 0 80px;
+        color: white;
+        font-weight: bold;
+        font-size: 60px;
+    }
+}
+
+.login-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 285px;
+    background: rgba($color: #000000, $alpha: 0.6);
+    border-radius: 0.25rem;
+}
+
+.login-form input, .login-form button {
+    border: none;
+}
+
+.login-form input[type="text"], .login-form input[type="password"], .login-form button {
+    padding: 0.8rem;
+    border-radius: 0.25rem;
+    outline: none;
+}
+
+.login-item {
+    padding: 25px 35px 0;
+    display: flex;
+    flex-direction: column;
+
+    span {
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        padding-bottom: 5px;
+    }
+}
+
+.login-buttons {
+    padding: 25px 35px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    button {
+        width: 100%;
+        font-size: 15px;
+        font-weight: bold;
+    }
+}
+
+.none {
+    display: none;
+}
+
+.loader-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-logo {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader-logo img {
+    width: 65%;
+}
+
+.loader {
+    border: 6px solid transparent;
+    border-top-color: white;
+    border-bottom-color: white;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+.loader::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    border: 6px solid transparent;
+    border-top-color: rgba(255, 255, 255, 0.7);
+    border-bottom-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    -webkit-animation: spin 1.8s linear infinite;
+    animation: spin 1.8s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+}
+
+.escudo-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.escudo {
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.aviso-box {
+    background: white;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    text-align: justify;
+    font-weight: bold;
+}

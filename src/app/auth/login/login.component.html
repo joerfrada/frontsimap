@@ -1,0 +1,49 @@
+<div class="login-container">
+    <header class="login-header">
+        <img class="logo1" src="../../../assets/img/escudo-policia.png">
+        <div class="login-title">AVIACIÓN POLICIAL</div>
+        <img class="logo2" src="../../../assets/img/simap.png">
+    </header>
+    <div class="login-main" [ngClass]="{'none': loader}">
+        <div class="login-form">
+            <div class="login-item">
+                <span>Usuario:</span>
+                <input type="text" [(ngModel)]="usuario" (keyup.enter)="inputNext()" autofocus>
+            </div>
+            <div class="login-item">
+                <span>Contraseña:</span>
+                <input type="password" class="inputp" [(ngModel)]="password" (keyup.enter)="login()">
+            </div>
+            <div class="login-buttons">
+                <button type="button" style="margin-right: 15px;" (click)="login()">Aceptar</button>
+                <button type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader-wrapper animated fadeIn" *ngIf="loader">
+    <div class="loader-logo">
+        <img src="../../../assets/img/escudo-policia.png">
+        <div class="loader"></div>
+    </div>
+</div>
+
+<app-aviso-modal [show]="aviso" [size]="'modal-sm'" (close)="closeModal()">
+    <div role="body">
+        <div class="form-body">
+            <div class="row">
+                <div class="escudo-box">
+                    <img class="escudo" src="../../../assets/img/escudo-policia.png">
+                </div>
+            </div>
+            <div class="row">
+                <div class="aviso-box">
+                    Está ingresando a un sistema de información de propiedad de la Policia Nacional, su uso no autorizado incurre en el incumplimiento de las políticas de seguridad de la institución establecida en el Manuel de Sistema de Gestión de Seguridad de la información para la Policia Nacional y acarrea sanciones penales, disciplinarias y/o administrativas a que haya lugar; ayúdenos a prevenir la divulgación no autorizada, pérdida y/o fuga de la información institucional.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="footer">
+        <button type="button" class="btn btn-success" (click)="closeModal()">Aceptar</button>
+    </div>
+</app-aviso-modal>

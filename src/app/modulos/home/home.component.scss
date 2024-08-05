@@ -1,0 +1,10 @@
+.app-canvas-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 210px);
+}
+
+.app-canvas-inner canvas  {
+    height: 350px !important;
+}
