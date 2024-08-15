@@ -1,0 +1,238 @@
+<app-breadcrumb [icon]="'fa-list-ul'" [title]="'Valores Flexibles'" [items]="'Módulo,Parametrización,Valores Flexibles'"></app-breadcrumb>
+<div class="app-content-inner">
+    <div class="app-content-tile">
+        <div class="flex-content">
+            <div class="filter-content">
+                <ul class="filter-inner">
+                    <li class="filter-item">
+                        <button type="button" class="btn btn-dark" (click)="openCrearTipoValor()">Crear</button>
+                    </li>
+                    <li class="filter-item">
+                        <div class="input-group-btn">
+                            <input type="search" placeholder="Buscar..." (keyup)="searchTipoValor($event)" (search)="clearSearchTipoValor($event)">
+                            <button type="button" class="btn btn-dark">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <app-loader [loader]="model.loader"></app-loader>
+            <div class="table-content">
+                <table class="table flex-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Lista</th>
+                            <th>Lista Padre</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="scroll">
+                        <tr *ngFor="let item of varhistorial; let i = index">
+                            <td>{{ item.tipo }}</td>
+                            <td>{{ item.tipo_valor_padre }}</td>
+                            <td>{{ item.descripcion }}</td>
+                            <td>
+                                <i class="fa fa-1m5x fa-check-circle" *ngIf="item.activo == true"></i>
+                                <i class="fa fa-1m5x fa-times-circle" *ngIf="item.activo == false"></i>
+                            </td>
+                            <td class="buttons">
+                                <button type="button" class="btn btn-primary">Detalle</button>
+                                <button type="button" class="btn btn-primary" (click)="openEditarTipoValor(item)">Editar</button>
+                                <button type="button" class="btn btn-primary" (click)="openValor(item)">Valores Flexibles</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="varhistorial?.length == 0">
+                            <div class="dbempty">No hay datos.</div>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-content">
+                <app-pagination
+                    [totalRegistros]="model.total"
+                    [registroPorPagina]="model.total_num_pag"
+                    [actualPagina]="model.num_pag"
+                    (first)="first()"
+                    (prev)="prev($event)"
+                    (next)="next($event)"
+                    (last)="last()"
+                ></app-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal [title]="model.titleTipo" [show]="tipoModal" [size]="'modal-md'" [theme]="'modal-header-dark'" (close)="closeTipoValorModal($event)">
+    <div role="body">
+        <div class="form-body">
+            <div class="row">
+                <div class="input-group">
+                    <label>Nombre Tipo:</label>
+                    <input type="text" class="form-control form-control-sm" style="text-transform:uppercase" [(ngModel)]="model.varTipo.tipo" [disabled]="model.isLectura">
+                </div>
+                <div class="input-group">
+                    <label>Lista Padre</label>
+                    <select class="form-control form-control-sm" [(ngModel)]="model.varTipo.id_tipo_valor_padre">
+                        <option value="0">Seleccionar...</option>
+                        <option *ngFor="let item of lstTipo" value="{{ item.id}}">{{ item.nombre }}</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Activo</label>
+                    <input type="checkbox" checked="checked" [(ngModel)]="model.varTipo.activo" [disabled]="model.isLectura">
+                </div>                
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <label>Descripción:</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="model.varTipo.descripcion" [disabled]="model.isLectura">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="footer">
+        <button type="button" class="btn btn-danger" (click)="closeTipoValorModal(false)">Cancelar</button>
+        <button type="button" class="btn btn-success" *ngIf="model.tipo == 'C'" (click)="saveTipoValor()">Crear</button>
+        <button type="button" class="btn btn-success" *ngIf="model.tipo == 'U'" (click)="updateTipoValor()">Actualizar</button>
+    </div>
+</app-modal>
+
+<app-modal [title]="model.titleValor" [show]="valorModal" [size]="'modal-lg2 modal-h85'" [theme]="'modal-header-dark'" (close)="closeValorModal($event)">
+    <div role="body">
+        <div class="flex-content">
+            <div class="filter-content">
+                <ul class="filter-inner">
+                    <li class="filter-item">
+                        <button type="button" class="btn btn-dark" (click)="openCrearValor()">Crear</button>
+                    </li>
+                    <li class="filter-item">
+                        <div class="input-group-btn">
+                            <input type="search" placeholder="Buscar..." (keyup)="searchValor($event)" (search)="clearSearchValor($event)">
+                            <button type="button" class="btn btn-dark">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <app-loader [loader]="model.loaderv"></app-loader>
+            <div class="table-content">
+                <table class="table flex-table">
+                    <thead>
+                        <tr>
+                            <th>Valor</th>
+                            <th>Orden</th>
+                            <th>Sigla</th>
+                            <th>Estado</th>
+                            <th>Valor Padre</th>
+                            <th>Atributo 1</th>
+                            <th>Atributo 2</th>
+                            <th>Atributo 3</th>
+                            <th>Atributo 4</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="scroll">
+                        <tr *ngFor="let item of varhistorialValor; let i = index">
+                            <td>{{ item.valor }}</td>
+                            <td>{{ item.orden }}</td>
+                            <td>{{ item.sigla }}</td>
+                            <td>
+                                <i class="fa fa-1m5x fa-check-circle" *ngIf="item.activo == true"></i>
+                                <i class="fa fa-1m5x fa-times-circle" *ngIf="item.activo == false"></i>
+                            </td>
+                            <td>{{ item.valor_flexible_padre }}</td>
+                            <td>{{ item.atributo1 }}</td>
+                            <td>{{ item.atributo2 }}</td>
+                            <td>{{ item.atributo3 }}</td>
+                            <td>{{ item.atributo4 }}</td>
+                            <td class="buttons">
+                                <button type="button" class="btn btn-primary">Detalle</button>
+                                <button type="button" class="btn btn-primary" (click)="openEditarValor(item)">Editar</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="varhistorialValor?.length == 0">
+                            <div class="dbempty">No hay datos.</div>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-content">
+                <app-pagination
+                    [totalRegistros]="model.totalv"
+                    [registroPorPagina]="model.total_num_pagv"
+                    [actualPagina]="model.num_pagv"
+                    (first)="firstValor()"
+                    (prev)="prevValor($event)"
+                    (next)="nextValor($event)"
+                    (last)="lastValor()"
+                ></app-pagination>
+            </div>
+        </div>
+    </div>
+    <div role="footer">
+        <button type="button" class="btn btn-danger" (click)="closeValorModal(false)">Cancelar</button>
+    </div>
+</app-modal>
+
+<app-modal [title]="model.title" [show]="valorFlexibleModal" [size]="'modal-md-1 modal-h50'" [theme]="'modal-header-dark'" (close)="closeValorFlexibleModal($event)">
+    <div role="body">
+        <div class="form-body">
+            <div class="row">
+                <div class="input-group">
+                    <label>Nombre Valor:</label>
+                    <input type="text" class="form-control form-control-sm" style="text-transform:uppercase" [(ngModel)]="model.varValor.valor" [disabled]="model.isLectura">
+                </div>
+                <div class="input-group">
+                    <label>Lista Valor Padre</label>
+                    <select class="form-control form-control-sm" [(ngModel)]="model.varValor.id_valor_flexible_padre">
+                        <option value="0">Seleccionar...</option>
+                        <option *ngFor="let item of lstValor" value="{{ item.id}}">{{ item.nombre }}</option>
+                    </select>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <label>Sigla:</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="model.varValor.sigla" [disabled]="model.isLectura">
+                </div>
+                <div class="input-group">
+                    <label>Orden:</label>
+                    <input type="number" [attr.min]="0" notnegative class="form-control form-control-sm" [(ngModel)]="model.varValor.orden" [disabled]="model.isLectura">
+                </div>                
+                <div class="input-group">
+                    <label>Activo</label>
+                    <input type="checkbox" checked="checked" [(ngModel)]="model.varValor.activo" [disabled]="model.isLectura">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <label>Atributo 1:</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="model.varValor.atributo1" [disabled]="model.isLectura">
+                </div>
+                <div class="input-group">
+                    <label>Atributo 2:</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="model.varValor.atributo2" [disabled]="model.isLectura">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <label>Atributo 3:</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="model.varValor.atributo3" [disabled]="model.isLectura">
+                </div>
+                <div class="input-group">
+                    <label>Atributo 4:</label>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="model.varValor.atributo4" [disabled]="model.isLectura">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="footer">
+        <button type="button" class="btn btn-danger" (click)="closeValorFlexibleModal(false)">Cancelar</button>
+        <button type="button" class="btn btn-success" (click)="saveValor()" *ngIf="model.tipo == 'C'">Crear</button>
+        <button type="button" class="btn btn-success" (click)="updateValor()" *ngIf="model.tipo == 'U'">Actualizar</button>
+    </div>
+</app-modal>

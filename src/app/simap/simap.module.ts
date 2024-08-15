@@ -21,6 +21,10 @@ import { FuncionComponent } from '../modulos/admin/funcion/funcion.component';
 import { RolComponent } from '../modulos/admin/rol/rol.component';
 import { PrivilegioComponent } from '../modulos/admin/privilegio/privilegio.component';
 import { UsuarioComponent } from '../modulos/admin/usuario/usuario.component';
+import { PaginationComponent } from '../views/pagination/pagination.component';
+import { LoaderComponent } from '../views/loader/loader.component';
+import { ValorFexibleComponent } from '../modulos/parametrizacion/valor-fexible/valor-fexible.component';
+import { NotnegativeDirective } from '../directives/notnegative.directive';
 
 
 @NgModule({
@@ -39,7 +43,11 @@ import { UsuarioComponent } from '../modulos/admin/usuario/usuario.component';
     FuncionComponent,
     RolComponent,
     PrivilegioComponent,
-    UsuarioComponent,    
+    UsuarioComponent,
+    PaginationComponent,
+    LoaderComponent,
+    ValorFexibleComponent,
+    NotnegativeDirective,    
   ],
   imports: [
     CommonModule,    

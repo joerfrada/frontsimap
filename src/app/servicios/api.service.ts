@@ -9,11 +9,13 @@ declare var swal:any;
 })
 export class ApiService {
 
-  public baseurl = "https://localhost:44385/api/";
+  public baseurl = "https://localhost:7135/api/";
 
   constructor() { }
 
   public getHttpOptions(tipo = 'l'): any {
+    let currentUser = JSON.parse(localStorage.getItem("currentUser") as any);
+
     if (tipo == 'l') {
       return {
         headers: new HttpHeaders({
@@ -27,7 +29,8 @@ export class ApiService {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Data-Type': 'json',
-          'Accept': 'json'
+          'Accept': 'json',
+          'USER': currentUser.usuario
         })
       };
     }

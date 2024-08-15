@@ -1,0 +1,11 @@
+
+<div class="pagination-inner">
+    <span class="label-count">Registros totales: {{ totalRegistros }}</span>
+    <div class="pagination-buttons">
+        <button type="button" class="button btn-success" [disabled]="actualPagina == 1" (click)="onFirst()">Primero</button>
+        <button type="button" class="button btn-success" [disabled]="actualPagina == 1"(click)="onPrev(actualPagina)">Anterior</button>
+        <span>Página {{ actualPagina }} de {{ registroPorPagina }}</span>
+        <button type="button" class="button btn-success" [disabled]="actualPagina == registroPorPagina" (click)="onNext(actualPagina)">Siguiente</button>
+        <button type="button" class="button btn-success" [disabled]="actualPagina == registroPorPagina" (click)="onLast()">Último</button>
+    </div>
+</div>

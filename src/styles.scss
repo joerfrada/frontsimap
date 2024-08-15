@@ -117,7 +117,7 @@ label {
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
-    background-color: #f0f0f0;
+    background-color: #fafafa;
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
@@ -964,7 +964,7 @@ input[type="button"].btn-block {
 .flex-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -1009,9 +1009,7 @@ input[type="button"].btn-block {
 
 .pagination-content {
     border-top: 1px solid lightgray;
-    // background: lightgray;
     padding: 0 10px;
-    font-weight: bold;
 }
 
 .input-group-btn input[type=text] {
@@ -1045,7 +1043,26 @@ input[type="button"].btn-block {
     overflow: auto;
 }
 
-.table {
+.tabla-content {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 10px;
+}
+
+.tabla {
+    border-collapse: collapse;
+
+    thead {
+        background: #343a40;
+        color: white;
+    }
+
+    tbody {
+        width: calc(100% - 10px);
+    }
+}
+
+.table, .tabla {
     width: 100%;
 
     .fa-check-circle {
@@ -1091,6 +1108,9 @@ input[type="button"].btn-block {
     font-weight: 900;
     color: #fff;
     background: #343a40 !important;
+    position: fixed;
+    width: calc(100% - 350px);
+    z-index: 2;
 }
 
 .form-table .table-content table.flex-table thead, .form-table .table-content table.flex-table thead tr {
@@ -1110,6 +1130,7 @@ input[type="button"].btn-block {
     flex: 1;
     overflow-y: auto; 
     display: block;
+    margin-top: 45px;
 }
 
 .flex-table-scroll {
@@ -1204,6 +1225,27 @@ input[type="button"].btn-block {
             margin-bottom: 0;
         }
     }
+}
+
+.app-content-inner .table-content::-webkit-scrollbar {
+    background-color: #f1f1f1;
+    width: 10px;
+    height: 10px;
+}
+
+.app-content-inner .table-content::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.app-content-inner .table-content::-webkit-scrollbar-thumb {
+    // background-color: #babac0;
+    background-color: #32373d;
+    border-radius: 16px;
+    border: 1px solid #fff;
+}
+
+.app-content-inner .table-content::-webkit-scrollbar-button {
+    display: none;
 }
 
 .dbempty {
@@ -1352,6 +1394,17 @@ input[type="button"].btn-block {
 
 .modal-lg2 {
     width: 90vw;
+
+    .table-content table.flex-table thead tr {
+        width: calc(100% - 232px);
+    }
+
+    .loading {
+        top: 216px !important;
+        left: 106px !important;
+        width: 106.72rem !important;
+        height: calc(100% - 392px) !important;
+    }
 }
 
 .modal-lg3 {
@@ -1396,10 +1449,18 @@ input[type="button"].btn-block {
 
 .modal-h80 {
     height: 80vh;
+
+    .table-content table.flex-table {
+        height: calc(100vh - 387px);
+    }
 }
 
 .modal-h85 {
     height: 85vh;
+
+    .table-content table.flex-table {
+        height: calc(100vh - 355px);
+    }
 }
 
 .modal-h90 {
@@ -1459,6 +1520,7 @@ input[type="button"].btn-block {
     border-radius: 0.25em;
     position: relative;
     top: 12px;
+    left: 5px;
     width: 15px;
 }
 

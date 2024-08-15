@@ -12,6 +12,7 @@ import { FuncionComponent } from '../modulos/admin/funcion/funcion.component';
 import { RolComponent } from '../modulos/admin/rol/rol.component';
 import { PrivilegioComponent } from '../modulos/admin/privilegio/privilegio.component';
 import { UsuarioComponent } from '../modulos/admin/usuario/usuario.component';
+import { ValorFexibleComponent } from '../modulos/parametrizacion/valor-fexible/valor-fexible.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
     { path: 'seguridad/funciones', component: FuncionComponent },
     { path: 'seguridad/grupos-roles', component: RolComponent },
     { path: 'seguridad/privilegios', component: PrivilegioComponent },
-    { path: 'seguridad/usuarios', component: UsuarioComponent }
+    { path: 'seguridad/usuarios', component: UsuarioComponent },
+    { path: 'parametrizacion/valores-flexibles', component: ValorFexibleComponent }
   ]},
 ];
 
