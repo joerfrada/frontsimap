@@ -1,11 +1,12 @@
 <app-breadcrumb [icon]="'fa-list-ul'" [title]="'Valores Flexibles'" [items]="'Módulo,Parametrización,Valores Flexibles'"></app-breadcrumb>
 <div class="app-content-inner">
     <div class="app-content-tile">
-        <div class="flex-content">
+        <div class="flex-content transition">
             <div class="filter-content">
                 <ul class="filter-inner">
                     <li class="filter-item">
-                        <button type="button" class="btn btn-dark" (click)="openCrearTipoValor()">Crear</button>
+                        <!-- <button type="button" class="btn btn-dark" (click)="openCrearTipoValor()">Crear</button> -->
+                        <button type="button" class="btn btn-dark btn-icon" (click)="addTipo()"><i class="fa fa-plus"></i></button>
                     </li>
                     <li class="filter-item">
                         <div class="input-group-btn">
@@ -31,17 +32,48 @@
                     </thead>
                     <tbody class="scroll">
                         <tr *ngFor="let item of varhistorial; let i = index">
-                            <td>{{ item.tipo }}</td>
-                            <td>{{ item.tipo_valor_padre }}</td>
-                            <td>{{ item.descripcion }}</td>
                             <td>
-                                <i class="fa fa-1m5x fa-check-circle" *ngIf="item.activo == true"></i>
-                                <i class="fa fa-1m5x fa-times-circle" *ngIf="item.activo == false"></i>
+                                <ng-container *ngIf="model.isLectura == true">
+                                    {{ item.tipo }}
+                                </ng-container>
+                                <ng-container *ngIf="model.isLectura == false">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ingrese tipo" style="text-transform:uppercase" [(ngModel)]="item.tipo" [disabled]="item.EditarRegistro == false">
+                                </ng-container>
+                            </td>
+                            <td>
+                                <ng-container *ngIf="model.isLectura == true">
+                                    {{ item.tipo_valor }}
+                                </ng-container>
+                                <ng-container *ngIf="model.isLectura == false">
+                                    <select id="select" class="form-control form-control-sm" [(ngModel)]="item.id_tipo_valor_padre" [disabled]="item.EditarRegistro == false">
+                                        <option value="0">Seleccionar...</option>
+                                        <option *ngFor="let item of lstTipo" value="{{ item.id}}">{{ item.nombre }}</option>
+                                    </select>
+                                </ng-container>
+                            </td>
+                            <td>
+                                <ng-container *ngIf="model.isLectura == true">
+                                    {{ item.descripcion }}
+                                </ng-container>
+                                <ng-container *ngIf="model.isLectura == false">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Ingrese descripción" [(ngModel)]="item.descripcion" [disabled]="item.EditarRegistro == false">
+                                </ng-container>                                
+                            </td>
+                            <td>
+                                <ng-container *ngIf="model.isLectura == true">
+                                    <i class="fa fa-1m5x fa-check-circle" *ngIf="item.activo == true"></i>
+                                    <i class="fa fa-1m5x fa-times-circle" *ngIf="item.activo == false"></i>
+                                </ng-container>
+                                <ng-container *ngIf="model.isLectura == false">
+                                    <input type="checkbox" [checked]="item.activo" [(ngModel)]="item.activo" [disabled]="item.EditarRegistro == false">
+                                </ng-container>
                             </td>
                             <td class="buttons">
-                                <button type="button" class="btn btn-primary">Detalle</button>
-                                <button type="button" class="btn btn-primary" (click)="openEditarTipoValor(item)">Editar</button>
-                                <button type="button" class="btn btn-primary" (click)="openValor(item)">Valores Flexibles</button>
+                                <button type="button" class="btn btn-primary btn-icon" *ngIf="item.NuevoRegistro == false"><i class="fa fa-eye"></i></button>
+                                <button type="button" class="btn btn-primary btn-icon" *ngIf="item.NuevoRegistro == false" (click)="openEditarTipoValor(item, i)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-primary btn-icon" *ngIf="item.NuevoRegistro == false && item.id_tipo_valor != 0" (click)="openValor(item)"><i class="fa fa-list-ul"></i></button>
+                                <button type="button" class="btn btn-danger btn-icon" *ngIf="item.EliminarRegistro"><i class="fa fa-trash"></i></button>
+                                <i class="fa fa-times-circle fa-1m5x icon pointer noselect" *ngIf="item.NuevoRegistro == true" (click)="deleteValor(i)"></i>
                             </td>
                         </tr>
                         <tr *ngIf="varhistorial?.length == 0">

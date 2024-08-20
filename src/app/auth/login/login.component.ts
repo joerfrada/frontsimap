@@ -27,13 +27,14 @@ export class LoginComponent implements OnInit {
     $('.inputp').focus();
   }
 
-  login() {
+  login() {    
     this.loginService.login({ usuario: this.usuario, password: this.password }).subscribe(data => {
       let response: any = this.api.ProcesarRespuesta(data);
       if (response.tipo === 0) {
-        localStorage.setItem("currentUser", JSON.stringify(response.result));
-        //localStorage.setItem("auth-token", response.token);
         this.loader = true;
+        localStorage.setItem("currentUser", JSON.stringify(response.result));
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("expires", response.expires)        
         setTimeout(() => {
           location.href = "/simap/home";
         }, 2000);

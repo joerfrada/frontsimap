@@ -1,4 +1,4 @@
-import { Attribute, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../servicios/api.service';
 import { ValorflexibleService } from 'src/app/servicios/modulos/parametrizacion/valorflexible.service';
@@ -53,7 +53,7 @@ export class Model {
   templateUrl: './valor-fexible.component.html',
   styleUrls: ['./valor-fexible.component.scss']
 })
-export class ValorFexibleComponent {
+export class ValorFexibleComponent implements OnInit {
 
   varhistorial: any = [];
   varhistorialTemp: any = [];
@@ -100,6 +100,9 @@ export class ValorFexibleComponent {
       let response: any = this.api.ProcesarRespuesta(data);
       if (response.tipo == 0) {
         response.result.forEach((x: any) => {
+          x.NuevoRegistro = false;
+          x.EliminarRegistro = true;
+          x.EditarRegistro = false;
           this.lstTipo.push({ id: x.id_tipo_valor, nombre: x.tipo });
         });
 
@@ -133,6 +136,22 @@ export class ValorFexibleComponent {
     }
   }
 
+  addTipo() {
+    this.varhistorial.push({
+      id_tipo_valor: 0,
+      tipo: '',
+      descripcion: '',
+      activo: true,
+      id_tipo_valor_padre: 0,
+      NuevoRegistro: true,
+      EliminarRegistro: false
+    });
+  }
+
+  deleteValor(index: any) {
+    this.varhistorial.splice(index, 1);
+  }
+
   openCrearTipoValor() {
     this.model.titleTipo = "Crear";
     this.model.isLectura = false;
@@ -143,18 +162,19 @@ export class ValorFexibleComponent {
     this.tipoModal = true;
   }
 
-  openEditarTipoValor(data: any) {
-    this.model.titleTipo = "Actualizar - " + data.tipo;
-    this.model.isLectura = false;
-    this.model.tipo = "U";
+  openEditarTipoValor(data: any, index: any) {
+    // this.model.titleTipo = "Actualizar - " + data.tipo;
+    // this.model.isLectura = false;
+    // this.model.tipo = "U";
 
-    this.model.varTipo.id_tipo_valor = data.id_tipo_valor;
-    this.model.varTipo.tipo = data.tipo;
-    this.model.varTipo.descripcion = data.descripcion;
-    this.model.varTipo.activo = data.activo;
-    this.model.varTipo.id_tipo_valor_padre = data.id_tipo_valor_padre;
+    // this.model.varTipo.id_tipo_valor = data.id_tipo_valor;
+    // this.model.varTipo.tipo = data.tipo;
+    // this.model.varTipo.descripcion = data.descripcion;
+    // this.model.varTipo.activo = data.activo;
+    // this.model.varTipo.id_tipo_valor_padre = data.id_tipo_valor_padre;
 
-    this.tipoModal = true;
+    // this.tipoModal = true;
+    this.varhistorial[index].EditarRegistro = true;
   }
 
   closeTipoValorModal(bol: any) {

@@ -1,0 +1,95 @@
+.auth-container {
+    background-image: url('../../../assets/img/bg-simap.png');
+    background-repeat: repeat;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    background: rgba($color: #000000, $alpha: 0.3);
+
+    .logo1 {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    .logo2 {
+        width: 252px;
+        height: 91px;
+    }
+
+    .auth-title {
+        padding: 0 80px;
+        color: white;
+        font-weight: bold;
+        font-size: 60px;
+    }
+}
+
+.auth-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.auth-inner {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 400px;
+    background: rgba($color: #000000, $alpha: 0.6);
+    border-radius: 0.25rem;
+    color: white;
+
+    .title1 {        
+        font-size: 121px;
+        padding: 15px 0;
+    }
+
+    .title2 {
+        font-size: 40px;
+    }
+
+    .message {
+        color: white;
+        font-size: 25px;
+        padding: 15px 0;
+    }
+
+    .auth-button {
+        padding: 0 20px;
+        padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            border: none;
+            padding: 0.8rem;
+            border-radius: 0.25rem;
+            outline: none;
+            width: 230px;
+            font-size: 15px;
+            font-weight: bold;
+
+            &:hover {
+                background: #32373d;
+                color: white;
+            }
+        }
+    }
+}

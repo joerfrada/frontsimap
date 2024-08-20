@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 declare var swal:any;
 
@@ -9,7 +10,7 @@ declare var swal:any;
 })
 export class ApiService {
 
-  public baseurl = "https://localhost:7135/api/";
+  public baseurl = environment.baseUrl + "api/";
 
   constructor() { }
 
@@ -30,6 +31,7 @@ export class ApiService {
           'Content-Type': 'application/json',
           'Data-Type': 'json',
           'Accept': 'json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
           'USER': currentUser.usuario
         })
       };
@@ -60,17 +62,38 @@ export class ApiService {
       });
     }
     else {
-      if (error.status === 401) {
-        errorMessage = "Su sesión ha expirado. Intente conectarse nuevamente.";
+      if (error.status === 0) {
+        errorMessage = "El servidor está apagado o inaccesible. Contacte a su administrador";
         swal({
-          title: 'ERROR AUTENTICACIÓN',
+          title: 'ERROR',
           type: 'error',
           text: errorMessage
         }).then((result: any) => {
           setTimeout(() => {
             localStorage.clear();
-            window.location.href = '/login';
+            window.location.href = '/';
           }, 500);
+        });
+      }
+      else if (error.status === 401) {
+        errorMessage = "No está autorizado.";
+        swal({
+          title: 'ERROR',
+          type: 'error',
+          text: errorMessage
+        }).then((result: any) => {
+          setTimeout(() => {
+            localStorage.clear();
+            window.location.href = '/';
+          }, 500);
+        });
+      }
+      else if (error.status === 502) {
+        errorMessage = "El servicio está suspendido. Contacte a su administrador";
+        swal({
+          title: 'ERROR',
+          type: 'error',
+          text: errorMessage
         });
       }
       else {

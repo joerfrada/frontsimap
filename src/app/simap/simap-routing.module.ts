@@ -13,9 +13,12 @@ import { RolComponent } from '../modulos/admin/rol/rol.component';
 import { PrivilegioComponent } from '../modulos/admin/privilegio/privilegio.component';
 import { UsuarioComponent } from '../modulos/admin/usuario/usuario.component';
 import { ValorFexibleComponent } from '../modulos/parametrizacion/valor-fexible/valor-fexible.component';
+import { UnauthorizedComponent } from '../auth/unauthorized/unauthorized.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'simap', component: SimapComponent, children: [
     { path: 'home', component: HomeComponent },
     { path: 'operaciones/orden-vuelo', component: OrdenVueloComponent },
@@ -28,7 +31,9 @@ const routes: Routes = [
     { path: 'seguridad/privilegios', component: PrivilegioComponent },
     { path: 'seguridad/usuarios', component: UsuarioComponent },
     { path: 'parametrizacion/valores-flexibles', component: ValorFexibleComponent }
-  ]},
+  ],
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

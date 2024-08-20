@@ -65,6 +65,10 @@ body {
     user-select: none;
 }
 
+.transition {
+    transition: 0.2s all;
+}
+
 a {
     text-decoration: none;
 }
@@ -102,6 +106,10 @@ p {
 label {
     display: inline-block;
     margin-bottom: 0.5rem;
+}
+
+input[disabled] {
+    cursor: not-allowed;
 }
 
 .form-group {
@@ -165,7 +173,9 @@ label {
 }
   
 .form-control:disabled, .form-control[readonly] {
-    background-color: #e9ecef;
+    // background-color: #e9ecef;
+    // background-color: #f0f0f0;
+    background-color: white;
     opacity: 1;
 }
 
@@ -954,7 +964,7 @@ fieldset:disabled a.btn {
 .btn-block + .btn-block {
     margin-top: 0.5rem;
 }
-  
+ 
 input[type="submit"].btn-block,
 input[type="reset"].btn-block,
 input[type="button"].btn-block {
@@ -1004,6 +1014,10 @@ input[type="button"].btn-block {
 
     .btn {
         width: 93px;
+    }
+
+    .btn-icon {
+        width: 45px;
     }
 }
 
@@ -1069,7 +1083,7 @@ input[type="button"].btn-block {
         color: green;
     }
 
-    .fa-times-circle, .fa-trash {
+    .fa-times-circle {
         color: red;
     }
 
@@ -1077,10 +1091,32 @@ input[type="button"].btn-block {
         font-size: 1.3em;
     }
 
+    .icon {
+        color: black;
+    }
+
     .button {
         font-size: 12px;
         padding: 3px 8px;
     }
+
+    input[type="checkbox"] {
+        -ms-transform: scale(2); /* IE */
+        -moz-transform: scale(2); /* FF */
+        -webkit-transform: scale(2); /* Safari and Chrome */
+        -o-transform: scale(2); /* Opera */
+        transform: scale(2);
+        padding: 10px;
+        border-radius: 0.25em;
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 15px;
+    }
+}
+
+#select:disabled {
+    cursor: not-allowed;
 }
 
 .add_row_full .button {
@@ -1207,11 +1243,16 @@ input[type="button"].btn-block {
     background-color: white;
 }
 
+.table-content table select {
+    padding-top: 4px;
+}
+
 .table-content .buttons {
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100%;
 
     .btn {
         font-size: 15px;
@@ -1224,6 +1265,10 @@ input[type="button"].btn-block {
         &:last-child {
             margin-bottom: 0;
         }
+    }
+
+    .btn-icon {
+        width: 45px;
     }
 }
 

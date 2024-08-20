@@ -25,6 +25,7 @@ import { PaginationComponent } from '../views/pagination/pagination.component';
 import { LoaderComponent } from '../views/loader/loader.component';
 import { ValorFexibleComponent } from '../modulos/parametrizacion/valor-fexible/valor-fexible.component';
 import { NotnegativeDirective } from '../directives/notnegative.directive';
+import { UnauthorizedComponent } from '../auth/unauthorized/unauthorized.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { NotnegativeDirective } from '../directives/notnegative.directive';
     PaginationComponent,
     LoaderComponent,
     ValorFexibleComponent,
-    NotnegativeDirective,    
+    NotnegativeDirective,
+    UnauthorizedComponent,  
   ],
   imports: [
     CommonModule,    
