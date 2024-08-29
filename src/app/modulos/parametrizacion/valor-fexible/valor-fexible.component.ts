@@ -183,8 +183,8 @@ export class ValorFexibleComponent implements OnInit {
   }
 
   saveTipoValor() {
-    this.model.varTipo.tipo = this.model.varTipo.tipo.toUpperCase();
-    this.model.varTipo.id_tipo_valor_padre = this.model.varTipo.id_tipo_valor_padre == 0 ? 0 : Number(this.model.varTipo.id_tipo_valor_padre);
+    // this.model.varTipo.tipo = this.model.varTipo.tipo.toUpperCase();
+    // this.model.varTipo.id_tipo_valor_padre = this.model.varTipo.id_tipo_valor_padre == 0 ? 0 : Number(this.model.varTipo.id_tipo_valor_padre);
 
     swal({
       title: 'Tipos Valores',
@@ -198,22 +198,25 @@ export class ValorFexibleComponent implements OnInit {
       type: 'question'
     }).then((result: any) => {
       if (result.dismiss != "cancel") {
-        this.valor.createTiposValores(this.model.varTipo).subscribe((data: any) => {
-          let response: any = this.api.ProcesarRespuesta(data);
-          if (response.tipo == 0) {
-            swal({
-              title: 'Tipos Valores',
-              text: response.mensaje,
-              allowOutsideClick: false,
-              showConfirmButton: true,
-              confirmButtonText: 'Aceptar',
-              type: 'success',
-            }).then((result: any) => {
-              this.tipoModal = false;
-              this.reload();
-            })
+        this.varhistorial.forEach((x: any) => {
+          x.tipo = x.tipo.toUpperCase();
+          x.id_tipo_valor_padre = x.id_tipo_valor_padre == 0 ? 0 : Number(x.id_tipo_valor_padre);
+
+          if (x.NuevoRegistro == true) {
+            this.valor.createTiposValores(x).subscribe(data => {});
           }
-        });        
+        });
+        swal({
+          title: 'Tipos Valores',
+          text: 'El registro ha creado con éxito.',
+          allowOutsideClick: false,
+          showConfirmButton: true,
+          confirmButtonText: 'Aceptar',
+          type: 'success',
+        }).then((result: any) => {
+          this.tipoModal = false;
+          this.reload();
+        });      
       }
     });
   }

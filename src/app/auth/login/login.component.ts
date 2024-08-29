@@ -18,10 +18,14 @@ export class LoginComponent implements OnInit {
   loader = false;
   aviso = true;
 
-  constructor(private loginService: LoginService, private api: ApiService) { }
-
-  ngOnInit(): void {
+  constructor(private loginService: LoginService, private api: ApiService) {
+    let t = localStorage.getItem("_expiredTime");
+    if (t != null || t != undefined) {
+      localStorage.removeItem("_expiredTime");
+    }
   }
+
+  ngOnInit(): void {}
 
   inputNext() {
     $('.inputp').focus();

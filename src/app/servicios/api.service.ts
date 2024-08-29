@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { Enviroment, TipoAmbiente } from './ambiente.service';
 
 declare var swal:any;
 
@@ -9,10 +9,15 @@ declare var swal:any;
   providedIn: 'root'
 })
 export class ApiService {
+  
+  private env = new Enviroment();
+  private ambiente: TipoAmbiente = TipoAmbiente.Local;
+  // private ambiente: TipoAmbiente = TipoAmbiente.Produccion;
+  // private ambiente: TipoAmbiente = TipoAmbiente.Pruebas;
 
-  public baseurl = environment.baseUrl + "api/";
+  public baseurl = this.env.backend(this.ambiente);
 
-  constructor() { }
+  constructor() {}
 
   public getHttpOptions(tipo = 'l'): any {
     let currentUser = JSON.parse(localStorage.getItem("currentUser") as any);
